@@ -26,17 +26,17 @@ function operate(){
     equal.addEventListener("click", () => {
         let result; 
         if (operator === "+"){
-            result = firstOperand + secondOperand;
-            console.log(result)
+            result = parseFloat(firstOperand) + parseFloat(secondOperand);
+            result_output.innerText = result;
         } else if (operator === "-"){
             result = firstOperand - secondOperand;
-            console.log(result)
+            result_output.innerText = result;
         } else if (operator === "×"){
             result = firstOperand*secondOperand;
-            console.log(result)
+            result_output.innerText = result;
         } else if (operator === "÷"){
             result = firstOperand/secondOperand;
-            console.log(result);
+            result_output.innerText = result;
         }
     })
 }
@@ -44,7 +44,13 @@ function operate(){
 function populateDisplay(){
     numbers.forEach(button => {
         button.addEventListener("click", () => {
-            stored_output.innerText += button.textContent;
+            if (operator !== ""){
+                secondOperand += button.textContent;
+                stored_output.textContent += button.textContent;
+            } else {
+            firstOperand += button.textContent;
+            stored_output.textContent = firstOperand;
+            }
         })
     })
 }
