@@ -3,74 +3,82 @@ const add = document.getElementById("add");
 const subtract = document.getElementById("subtract");
 const multiply = document.getElementById("multiply");
 const divide = document.getElementById("divide");
-const seven = document.getElementById("seven");
-const eight = document.getElementById("eight");
-const nine = document.getElementById("nine");
-const four = document.getElementById("four");
-const five = document.getElementById("five");
-const six = document.getElementById("six");
-const one = document.getElementById("one");
-const two = document.getElementById("two");
-const three = document.getElementById("three");
-const zero = document.getElementById("zero");
-const dot = document.getElementById("dot");
+const numbers = document.querySelectorAll(".calc_key")
 const clear = document.getElementById("clear");
 const equal = document.getElementById("equal");
-let numbers = [];
+const total = document.getElementById("total");
+const operators = document.querySelectorAll(".calc_operator_key");
+
+let digits = [];
+let a = [];
+let operator = [];
+let b = [];
+
 
 // show input
 
-seven.addEventListener("click", () => {
-    output.innerHTML = "7"
+numbers.forEach(button => {
+    button.addEventListener("click", () => {
+        output.textContent = button.textContent;
+        total.innerText += button.textContent;
+        digits.push(button.textContent);
+    });
+});
+
+operators.forEach(button => {
+    button.addEventListener("click", () => {
+        total.innerText += button.textContent;
+    })
 })
 
-eight.addEventListener("click", () => {
-    output.innerHTML = "8"
+equal.addEventListener("click", () => {
+    total.innerText += "=";
+}
+)
+
+equal.addEventListener("click", () => {
+    performOperation();
 })
 
-nine.addEventListener("click", () => {
-    output.innerHTML = "9"
+// clear button
+
+clear.addEventListener("click", () => {
+    total.textContent = "";
+    output.textContent = "";
+    digits = [];
 })
 
-four.addEventListener("click", () => {
-    output.innerHTML = "4"
-})
+// store pressed numbers in memory
 
-five.addEventListener("click", () => {
-    output.innerHTML = "5"
-})
+function performOperation(){
+    let a = parseInt(digits[0]);
+    let b = parseInt(digits[1]);
+    let result = a + b;
+    output.innerText = result;
+}
 
-six.addEventListener("click", () => {
-    output.innerHTML = "6"
-})
 
-one.addEventListener("click", () => {
-    output.innerHTML = "1"
-})
+// operate function
 
-two.addEventListener("click", () => {
-    output.innerHTML = "2"
-})
+function performAddition(a, b){
+    return a + b;
+}
 
-three.addEventListener("click", () => {
-    output.innerHTML = "3"
-})
+function operate(a, b, operator){
+    let result;
 
-zero.addEventListener("click", () => {
-    output.innerHTML = "0"
-})
+    if (operator === "+") {
+        result = performAddition(a, b);
+    } else if (operator === "-") {
+        result = performSubtract(a, b);
+    } else if (operator === "&times;") { 
+        result = performMultiply(a, b);
+    } else if (operator === "divide") {
+        result = performDivide(a, b);
+    } else {
+        result = "Invalid operator";
+    }
 
-dot.addEventListener("click", () => {
-    output.innerHTML = "."
-})
+    return result;
+}
 
-// store input in an array
-
-function storeNumber(){
-this.addEventListener("click", () => {
-    let number = parseInt(this.textContent);
-    numbers.push(number);
-    console.log(numbers);
-})}
-
-storeNumber()
