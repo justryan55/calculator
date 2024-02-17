@@ -10,7 +10,9 @@ const total = document.getElementById("total");
 const operators = document.querySelectorAll(".calc_operator_key");
 
 let digits = [];
-
+let a = [];
+let operator = [];
+let b = [];
 
 
 // show input
