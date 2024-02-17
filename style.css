@@ -28,7 +28,7 @@
 }
 
 
-.calculator_output, .total_output {
+.stored_output, .result_output {
   background: hsl(202, 11%, 29%);
   color: hsl(255, 100%, 100%);
   font-size: 2rem;

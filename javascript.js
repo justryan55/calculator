@@ -1,103 +1,65 @@
-const output = document.getElementById("output");
-const add = document.getElementById("add");
-const subtract = document.getElementById("subtract");
-const multiply = document.getElementById("multiply");
-const divide = document.getElementById("divide");
+
+
 const numbers = document.querySelectorAll(".calc_key")
+const operators = document.querySelectorAll(".calc_operator_key")
 const clear = document.getElementById("clear");
 const equal = document.getElementById("equal");
-const total = document.getElementById("total");
-const operators = document.querySelectorAll(".calc_operator_key");
+const stored_output = document.getElementById("stored");
+const result_output = document.getElementById("result");
 
-let digits = [];
+
 let firstOperand = "";
 let operator = "";
 let secondOperand = "";
 
-
-// show input
-
-numbers.forEach(button => {
-    button.addEventListener("click", () => {
-        // output.textContent = button.textContent;
-        total.innerText += button.textContent;
-        digits.push(button.textContent);
-    });
-});
-
-operators.forEach(button => {
-    button.addEventListener("click", () => {
-        operator = button.id;
-        firstOperand = total.innerText;
-        total.innerText += button.textContent;
-        output.textContent = "";
+function operatorClick(){
+    operators.forEach(button => {
+        button.addEventListener("click", () => {
+            operator = button.textContent;
+            stored_output.innerText += operator;
+            operate();
+        })
     })
-})
-
-equal.addEventListener("click", () => {
-    // total.innerText += "=";
-    operate();
 }
-)
-
-
-// clear button
-
-clear.addEventListener("click", () => {
-    total.textContent = "";
-    output.textContent = "";
-    operator = "";
-    firstOperand = "";
-    secondOperand = "";
-})
-
-// operator functions 
-
-function performAddition(){
-    let a = parseInt(firstOperand);
-    let b = parseInt(digits[1]);
-    let result = a + b;
-    output.innerText = result;
-    return result;
-}
-
-
-function performSubtract(){
-    let a = parseInt(digits[0]);
-    let b = parseInt(digits[1]);
-    let result = a - b;
-    output.innerText = result;
-    return result;
-}
-
-function performMultiply(){
-    let a = parseInt(digits[0]);
-    let b = parseInt(digits[1]);
-    let result = a * b;
-    output.innerText = result;
-    return result;
-}
-
-function performDivide(){
-    let a = parseInt(digits[0]);
-    let b = parseInt(digits[1]);
-    let result = a/b;
-    output.innerText = result;
-    return result;
-}
-
 
 function operate(){
-    if (operator === "add") {
-        result = performAddition();
-    } else if (operator === "subtract") {
-        result = performSubtract(a, b);
-    } else if (operator === "multiply") { 
-        result = performMultiply(a, b);
-    } else if (operator === "divide") {
-        result = performDivide(a, b);
-    } else {
-        result = "Invalid operator";
-    }
+    equal.addEventListener("click", () => {
+        let result; 
+        if (operator === "+"){
+            result = firstOperand + secondOperand;
+            console.log(result)
+        } else if (operator === "-"){
+            result = firstOperand - secondOperand;
+            console.log(result)
+        } else if (operator === "×"){
+            result = firstOperand*secondOperand;
+            console.log(result)
+        } else if (operator === "÷"){
+            result = firstOperand/secondOperand;
+            console.log(result);
+        }
+    })
+}
+            
+function populateDisplay(){
+    numbers.forEach(button => {
+        button.addEventListener("click", () => {
+            stored_output.innerText += button.textContent;
+        })
+    })
 }
 
+function reset(){
+    clear.addEventListener("click", () => {
+        firstOperand = "";
+        operator = "";
+        secondOperand = "";
+        stored_output.innerText = "";
+        result_output.innerText = ""; 
+    })
+}
+
+
+operatorClick()
+populateDisplay()
+reset()
