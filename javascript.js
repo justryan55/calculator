@@ -16,35 +16,61 @@ const zero = document.getElementById("zero");
 const dot = document.getElementById("dot");
 const clear = document.getElementById("clear");
 const equal = document.getElementById("equal");
-let equation = [];
+let numbers = [];
 
+// show input
 
-//show text in output
-
-function showText(event){
-    const clickedElement = event.target;
-    if (clickedElement.tagName === "BUTTON" && clickedElement.id !== "clear"){
-        output.innerHTML += clickedElement.innerText + " "
-    }
-    equation.push(clickedElement);
-    console.log(equation);
-}
-
-this.addEventListener("click", showText);
-
-// clear function
-
-clear.addEventListener("click", () => {
-    output.innerHTML = " ";
+seven.addEventListener("click", () => {
+    output.innerHTML = "7"
 })
 
-// add function
+eight.addEventListener("click", () => {
+    output.innerHTML = "8"
+})
 
-function addition(a, b){
-    a = 2;
-    b = 2;
-    output.innerText = a + b
-}
+nine.addEventListener("click", () => {
+    output.innerHTML = "9"
+})
 
-addition();
+four.addEventListener("click", () => {
+    output.innerHTML = "4"
+})
 
+five.addEventListener("click", () => {
+    output.innerHTML = "5"
+})
+
+six.addEventListener("click", () => {
+    output.innerHTML = "6"
+})
+
+one.addEventListener("click", () => {
+    output.innerHTML = "1"
+})
+
+two.addEventListener("click", () => {
+    output.innerHTML = "2"
+})
+
+three.addEventListener("click", () => {
+    output.innerHTML = "3"
+})
+
+zero.addEventListener("click", () => {
+    output.innerHTML = "0"
+})
+
+dot.addEventListener("click", () => {
+    output.innerHTML = "."
+})
+
+// store input in an array
+
+function storeNumber(){
+this.addEventListener("click", () => {
+    let number = parseInt(this.textContent);
+    numbers.push(number);
+    console.log(numbers);
+})}
+
+storeNumber()
