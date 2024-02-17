@@ -28,7 +28,7 @@
 }
 
 
-.calculator_output {
+.calculator_output, .total_output {
   background: hsl(202, 11%, 29%);
   color: hsl(255, 100%, 100%);
   font-size: 2rem;
@@ -36,7 +36,7 @@
   padding-block-end: 0.75rem;
   padding-inline-end: 0.75rem;
   text-align: end;
-  height: 40px;
+  height: 30px;
 }
 
 .calculator_keys {
@@ -81,6 +81,25 @@
   box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.3) inset;
   outline: none;
 }
+
+.calc_key_clear {
+  background: hsl(210, 25%, 95%);
+  border: none;
+  padding-block-start: 1rem;
+  padding-block-end: 1rem;
+  padding-inline-end: 1.25rem;
+  padding-inline-start: 1.25rem;
+  font-size: 1.5rem;
+
+
+}
+
+.calc_key_clear:active,
+.calc__key_clear:focus {
+box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.3) inset;
+outline: none;
+}
+
 
 
 .calc_enter_key {
