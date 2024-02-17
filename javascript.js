@@ -10,16 +10,16 @@ const total = document.getElementById("total");
 const operators = document.querySelectorAll(".calc_operator_key");
 
 let digits = [];
-let a = [];
-let operator = [];
-let b = [];
+let firstOperand = "";
+let operator = "";
+let secondOperand = "";
 
 
 // show input
 
 numbers.forEach(button => {
     button.addEventListener("click", () => {
-        output.textContent = button.textContent;
+        // output.textContent = button.textContent;
         total.innerText += button.textContent;
         digits.push(button.textContent);
     });
@@ -27,8 +27,10 @@ numbers.forEach(button => {
 
 operators.forEach(button => {
     button.addEventListener("click", () => {
-        total.innerText += button.textContent;
         operator = button.id;
+        firstOperand = total.innerText;
+        total.innerText += button.textContent;
+        output.textContent = "";
     })
 })
 
@@ -44,13 +46,15 @@ equal.addEventListener("click", () => {
 clear.addEventListener("click", () => {
     total.textContent = "";
     output.textContent = "";
-    digits = [];
+    operator = "";
+    firstOperand = "";
+    secondOperand = "";
 })
 
 // operator functions 
 
 function performAddition(){
-    let a = parseInt(digits[0]);
+    let a = parseInt(firstOperand);
     let b = parseInt(digits[1]);
     let result = a + b;
     output.innerText = result;
