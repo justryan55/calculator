@@ -10,9 +10,7 @@ const total = document.getElementById("total");
 const operators = document.querySelectorAll(".calc_operator_key");
 
 let digits = [];
-let a = [];
-let operator = [];
-let b = [];
+
 
 
 // show input
@@ -28,17 +26,16 @@ numbers.forEach(button => {
 operators.forEach(button => {
     button.addEventListener("click", () => {
         total.innerText += button.textContent;
+        operator = button.id;
     })
 })
 
 equal.addEventListener("click", () => {
-    total.innerText += "=";
+    // total.innerText += "=";
+    operate();
 }
 )
 
-equal.addEventListener("click", () => {
-    performOperation();
-})
 
 // clear button
 
@@ -48,37 +45,53 @@ clear.addEventListener("click", () => {
     digits = [];
 })
 
-// store pressed numbers in memory
+// operator functions 
 
-function performOperation(){
+function performAddition(){
     let a = parseInt(digits[0]);
     let b = parseInt(digits[1]);
     let result = a + b;
     output.innerText = result;
+    return result;
 }
 
 
-// operate function
-
-function performAddition(a, b){
-    return a + b;
+function performSubtract(){
+    let a = parseInt(digits[0]);
+    let b = parseInt(digits[1]);
+    let result = a - b;
+    output.innerText = result;
+    return result;
 }
 
-function operate(a, b, operator){
-    let result;
+function performMultiply(){
+    let a = parseInt(digits[0]);
+    let b = parseInt(digits[1]);
+    let result = a * b;
+    output.innerText = result;
+    return result;
+}
 
-    if (operator === "+") {
-        result = performAddition(a, b);
-    } else if (operator === "-") {
+function performDivide(){
+    let a = parseInt(digits[0]);
+    let b = parseInt(digits[1]);
+    let result = a/b;
+    output.innerText = result;
+    return result;
+}
+
+
+function operate(){
+    if (operator === "add") {
+        result = performAddition();
+    } else if (operator === "subtract") {
         result = performSubtract(a, b);
-    } else if (operator === "&times;") { 
+    } else if (operator === "multiply") { 
         result = performMultiply(a, b);
     } else if (operator === "divide") {
         result = performDivide(a, b);
     } else {
         result = "Invalid operator";
     }
-
-    return result;
 }
 
