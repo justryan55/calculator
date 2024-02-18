@@ -15,6 +15,7 @@
     justify-content: center;
     margin: auto;
     padding-bottom: 20px;
+    max-width: 290px;
 }
 
 .calculator {
@@ -37,6 +38,9 @@
   padding-inline-end: 0.75rem;
   text-align: end;
   height: 30px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: clip;
 }
 
 .calculator_keys {
