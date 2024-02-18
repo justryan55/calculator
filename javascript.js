@@ -23,26 +23,21 @@ window.addEventListener('keydown', function(e){
 function displayValue(){
     numbers.forEach(button => {
         button.addEventListener("click", () => {
-            if (firstOperand === "" && secondOperand === ""){
+            if (operator === ""){
                 firstOperand += button.value;
                 memory.innerText += button.value;
-            } else if (firstOperand !== "" && secondOperand === ""){
-                secondOperand += button.value;
-                memory.innerText += button.value;
-            } else if (firstOperand !== "" && secondOperand !== ""){
-                firstOperand = result;
-                secondOperand = button.value;
-                memory.innerText += button.value;
             } else {
-                firstOperand += result;
                 secondOperand += button.value;
                 memory.innerText += button.value;
-            } 
-            operate();   
+            }  
         }) 
     })
     operators.forEach(button => {
         button.addEventListener("click", () => {
+            if (secondOperand !== ""){
+                firstOperand = result;
+                secondOperand = ""
+            }
             memory.innerText += button.textContent;
             operator = button.textContent;
         })
@@ -53,14 +48,22 @@ function displayValue(){
 function operate(){
     if (operator === "+" && firstOperand !== ""){
         result = parseFloat(firstOperand) + parseFloat(secondOperand);
+        output.innerText = result.toFixed(3);
     } else if (operator === "-"){
         result = parseFloat(firstOperand) - parseFloat(secondOperand);
+        output.innerText = result.toFixed(3);
     } else if (operator === "×" || operator === "&times"){
         result = parseFloat(firstOperand)*parseFloat(secondOperand);
+        output.innerText = result.toFixed(3);
     } else if (operator === "÷"){
-        result = parseFloat(firstOperand)/parseFloat(secondOperand);
+        if (secondOperand === "0"){
+            output.innerText = "Invalid";
+        } else {
+            result = parseFloat(firstOperand)/parseFloat(secondOperand);
+            output.innerText = result.toFixed(3);
+        }    
     } 
-    output.innerText = result;
+    
 
 }
 
@@ -73,6 +76,7 @@ clear.addEventListener("click", () => {
     memory.innerText = "";
 })
 
+equal.addEventListener("click", operate)
 
 
 displayValue()
