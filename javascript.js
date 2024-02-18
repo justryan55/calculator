@@ -4,68 +4,76 @@ const numbers = document.querySelectorAll(".calc_key")
 const operators = document.querySelectorAll(".calc_operator_key")
 const clear = document.getElementById("clear");
 const equal = document.getElementById("equal");
-const stored_output = document.getElementById("stored");
-const result_output = document.getElementById("result");
+const memory = document.getElementById("memory");
+const output = document.getElementById("output");
 
 
 let firstOperand = "";
 let operator = "";
 let secondOperand = "";
+let result = ""
 
-function operatorClick(){
-    operators.forEach(button => {
-        button.addEventListener("click", () => {
-            operator = button.textContent;
-            stored_output.innerText += operator;
-            operate();
-        })
-    })
-}
+window.addEventListener('keydown', function(e){
+    const key = document.querySelector(`button[data-key='${e.keyCode}']`);
+    key.click();
+});
 
-function operate(){
-    equal.addEventListener("click", () => {
-        let result; 
-        if (operator === "+"){
-            result = parseFloat(firstOperand) + parseFloat(secondOperand);
-            result_output.innerText = result;
-        } else if (operator === "-"){
-            result = firstOperand - secondOperand;
-            result_output.innerText = result;
-        } else if (operator === "×"){
-            result = firstOperand*secondOperand;
-            result_output.innerText = result;
-        } else if (operator === "÷"){
-            result = firstOperand/secondOperand;
-            result_output.innerText = result;
-        }
-    })
-}
-            
-function populateDisplay(){
+
+
+function displayValue(){
     numbers.forEach(button => {
         button.addEventListener("click", () => {
-            if (operator !== ""){
-                secondOperand += button.textContent;
-                stored_output.textContent += button.textContent;
+            if (firstOperand === "" && secondOperand === ""){
+                firstOperand += button.value;
+                memory.innerText += button.value;
+            } else if (firstOperand !== "" && secondOperand === ""){
+                secondOperand += button.value;
+                memory.innerText += button.value;
+            } else if (firstOperand !== "" && secondOperand !== ""){
+                firstOperand = result;
+                secondOperand = button.value;
+                memory.innerText += button.value;
             } else {
-            firstOperand += button.textContent;
-            stored_output.textContent = firstOperand;
-            }
+                firstOperand += result;
+                secondOperand += button.value;
+                memory.innerText += button.value;
+            } 
+            operate();   
+        }) 
+    })
+    operators.forEach(button => {
+        button.addEventListener("click", () => {
+            memory.innerText += button.textContent;
+            operator = button.textContent;
         })
     })
 }
 
-function reset(){
-    clear.addEventListener("click", () => {
-        firstOperand = "";
-        operator = "";
-        secondOperand = "";
-        stored_output.innerText = "";
-        result_output.innerText = ""; 
-    })
+
+function operate(){
+    if (operator === "+" && firstOperand !== ""){
+        result = parseFloat(firstOperand) + parseFloat(secondOperand);
+    } else if (operator === "-"){
+        result = parseFloat(firstOperand) - parseFloat(secondOperand);
+    } else if (operator === "×" || operator === "&times"){
+        result = parseFloat(firstOperand)*parseFloat(secondOperand);
+    } else if (operator === "÷"){
+        result = parseFloat(firstOperand)/parseFloat(secondOperand);
+    } 
+    output.innerText = result;
+
 }
 
+clear.addEventListener("click", () => {
+    firstOperand = "";
+    secondOperand = "";
+    operator = "";
+    result = "";
+    output.innerText = "";
+    memory.innerText = "";
+})
 
-operatorClick()
-populateDisplay()
-reset()
+
+
+displayValue()
+
