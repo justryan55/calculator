@@ -48,19 +48,19 @@ function displayValue(){
 function operate(){
     if (operator === "+" && firstOperand !== ""){
         result = parseFloat(firstOperand) + parseFloat(secondOperand);
-        output.innerText = result.toFixed(3);
+        output.innerText = result;
     } else if (operator === "-"){
         result = parseFloat(firstOperand) - parseFloat(secondOperand);
-        output.innerText = result.toFixed(3);
+        output.innerText = result;
     } else if (operator === "×" || operator === "&times"){
         result = parseFloat(firstOperand)*parseFloat(secondOperand);
-        output.innerText = result.toFixed(3);
+        output.innerText = result;
     } else if (operator === "÷"){
         if (secondOperand === "0"){
             output.innerText = "Invalid";
         } else {
             result = parseFloat(firstOperand)/parseFloat(secondOperand);
-            output.innerText = result.toFixed(3);
+            output.innerText = result;
         }    
     } 
     
