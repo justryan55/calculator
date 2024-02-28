@@ -1,7 +1,5 @@
-
-
-const numbers = document.querySelectorAll(".calc_key");
-const operators = document.querySelectorAll(".calc_operator_key");
+const numbers = document.querySelectorAll(".calc-key");
+const operators = document.querySelectorAll(".calc-operator-key");
 const clear = document.getElementById("clear");
 const undo = document.getElementById("undo");
 const equal = document.getElementById("equal");
@@ -17,17 +15,17 @@ let memory = [];
 function userInput(){
     const value = this.value;
     if (!operatorFlag){
-        firstOperand += value;
+        memory.push(firstOperand += value);
         output.innerText += value;
     } else {
-        secondOperand += value;   
+        memory.push(secondOperand += value);   
         output.innerText += value;    
     }
 }
 
 function clickOperator(){
     if (!operatorValue){
-    operatorValue = this.textContent;
+    memory.push(operatorValue = this.textContent);
     output.innerText += this.textContent;
     operatorFlag = true;
     } else {
@@ -70,13 +68,21 @@ function lastOperation(){
 }
 
 function undoInput(){
-    if ()
+    if (secondOperand !== "") {
+        secondOperand = secondOperand.slice(0, -1);
+        output.textContent = firstOperand + operatorValue + secondOperand;
+    } else if (operatorValue !== "") {
+        operatorValue = "";
+        output.textContent = firstOperand;
+    } else {
+        firstOperand = firstOperand.slice(0, -1);
+        output.textContent = firstOperand;
+    }
 }
 
 numbers.forEach(button => {
     button.addEventListener("click", userInput);
 }); 
-    
     
 operators.forEach(button => {
     button.addEventListener("click", clickOperator);
@@ -97,3 +103,5 @@ equal.addEventListener("click", () => {
         operate();
     }
 })
+
+undo.addEventListener("click", undoInput);
