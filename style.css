@@ -108,9 +108,7 @@ outline: none;
 
 .calc_enter_key {
     grid-column: 4 / 5; 
-    grid-row: 2 / span 4; /
-    grid-column: 4 / 5;
-  grid-row: 2 / span 4;
+  grid-row: 4 / span 3;
   background: hsl(23, 85%, 49%);
 
 }
