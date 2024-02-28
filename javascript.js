@@ -1,83 +1,99 @@
 
 
-const numbers = document.querySelectorAll(".calc_key")
-const operators = document.querySelectorAll(".calc_operator_key")
+const numbers = document.querySelectorAll(".calc_key");
+const operators = document.querySelectorAll(".calc_operator_key");
 const clear = document.getElementById("clear");
+const undo = document.getElementById("undo");
 const equal = document.getElementById("equal");
-const memory = document.getElementById("memory");
 const output = document.getElementById("output");
 
-
 let firstOperand = "";
-let operator = "";
 let secondOperand = "";
-let result = ""
+let operatorValue = "";
+let operatorFlag = false;
+let result = "";
+let memory = []; 
 
-window.addEventListener('keydown', function(e){
-    const key = document.querySelector(`button[data-key='${e.keyCode}']`);
-    key.click();
-});
-
-
-
-function displayValue(){
-    numbers.forEach(button => {
-        button.addEventListener("click", () => {
-            if (operator === ""){
-                firstOperand += button.value;
-                memory.innerText += button.value;
-            } else {
-                secondOperand += button.value;
-                memory.innerText += button.value;
-            }  
-        }) 
-    })
-    operators.forEach(button => {
-        button.addEventListener("click", () => {
-            if (secondOperand !== ""){
-                firstOperand = result;
-                secondOperand = ""
-            }
-            memory.innerText += button.textContent;
-            operator = button.textContent;
-        })
-    })
+function userInput(){
+    const value = this.value;
+    if (!operatorFlag){
+        firstOperand += value;
+        output.innerText += value;
+    } else {
+        secondOperand += value;   
+        output.innerText += value;    
+    }
 }
 
+function clickOperator(){
+    if (!operatorValue){
+    operatorValue = this.textContent;
+    output.innerText += this.textContent;
+    operatorFlag = true;
+    } else {
+        operate();
+        firstOperand = result;
+        secondOperand = "";
+        operatorValue = this.textContent;
+        output.innerText = result + this.textContent;
+    }
+}
 
 function operate(){
-    if (operator === "+" && firstOperand !== ""){
-        result = parseFloat(firstOperand) + parseFloat(secondOperand);
-        output.innerText = result;
-    } else if (operator === "-"){
-        result = parseFloat(firstOperand) - parseFloat(secondOperand);
-        output.innerText = result;
-    } else if (operator === "×" || operator === "&times"){
-        result = parseFloat(firstOperand)*parseFloat(secondOperand);
-        output.innerText = result;
-    } else if (operator === "÷"){
+    let a = parseFloat(firstOperand);
+    let b = parseFloat(secondOperand);
+    if (operatorValue === "+"){
+        result = a + b;
+    } else if (operatorValue === "-"){
+        result = a - b;
+    } else if (operatorValue === "×" || operatorValue === "&tumes"){
+        result = a * b;
+    } else if (operatorValue === "%"){
+        result = a % b;
+    } else if (operatorValue === "÷"){
         if (secondOperand === "0"){
             output.innerText = "Invalid";
         } else {
-            result = parseFloat(firstOperand)/parseFloat(secondOperand);
-            output.innerText = result;
-        }    
-    } 
-    
-
+            result = a / b;
+        }
+    } output.innerText = result;
 }
+
+function lastOperation(){
+    if (operatorValue && secondOperand !== ""){
+        operate();
+        firstOperand = result;
+        output.textContent = result;
+    } else {
+        output.textContent = "Invalid";
+    }
+}
+
+function undoInput(){
+    if ()
+}
+
+numbers.forEach(button => {
+    button.addEventListener("click", userInput);
+}); 
+    
+    
+operators.forEach(button => {
+    button.addEventListener("click", clickOperator);
+}); 
 
 clear.addEventListener("click", () => {
     firstOperand = "";
     secondOperand = "";
-    operator = "";
-    result = "";
-    output.innerText = "";
-    memory.innerText = "";
+    operatorValue = "";
+    operatorFlag = false;
+    output.textContent = "";
+});
+
+equal.addEventListener("click", () => {
+    if (result !== null){
+        lastOperation();
+    } else {
+        operate();
+    }
 })
-
-equal.addEventListener("click", operate)
-
-
-displayValue()
-
